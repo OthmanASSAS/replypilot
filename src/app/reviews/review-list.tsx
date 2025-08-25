@@ -10,6 +10,7 @@ interface Review {
   reviewer: string;
   product_title: string;
   created_at: string;
+  response?: string;
 }
 
 export default function ReviewList() {
@@ -63,6 +64,33 @@ export default function ReviewList() {
     }
   };
 
+  const handlePublish = async (reviewId: string, responseContent: string) => {
+    try {
+      const res = await fetch(`/api/reviews/${reviewId}/publish`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ response: responseContent }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to publish response");
+      }
+
+      setReviews((prevReviews) =>
+        prevReviews.map((review) =>
+          review.id === reviewId
+            ? { ...review, response: responseContent }
+            : review,
+        ),
+      );
+    } catch (error) {
+      console.error("Error publishing review:", error);
+      alert("Failed to publish response.");
+    }
+  };
+
   if (loading) {
     return <div>Loading reviews...</div>;
   }
@@ -90,6 +118,14 @@ export default function ReviewList() {
                 </span>
               </div>
               <p className="text-gray-700 mt-2">{review.content}</p>
+              {review.response && (
+                <div className="mt-2 p-3 bg-blue-50 rounded">
+                  <p className="font-semibold text-blue-800">
+                    Published Response:
+                  </p>
+                  <p className="text-blue-700">{review.response}</p>
+                </div>
+              )}
               <div className="text-sm text-gray-500 mt-3">
                 <span>by {review.reviewer}</span> |{" "}
                 <span>{new Date(review.created_at).toLocaleDateString()}</span>
@@ -97,7 +133,9 @@ export default function ReviewList() {
               <div className="mt-4">
                 <button
                   onClick={() => handleSuggest(review.id)}
-                  disabled={suggestionLoading.get(review.id)}
+                  disabled={
+                    suggestionLoading.get(review.id) || !!review.response
+                  }
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:bg-gray-400"
                 >
                   {suggestionLoading.get(review.id)
@@ -108,7 +146,22 @@ export default function ReviewList() {
                   <div className="mt-4 p-3 bg-gray-100 rounded">
                     <p className="font-semibold">Suggested Response:</p>
                     <p>{suggestions.get(review.id)}</p>
+                    {!review.response && (
+                      <button
+                        onClick={() =>
+                          handlePublish(review.id, suggestions.get(review.id)!)
+                        }
+                        className="ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                      >
+                        Publish
+                      </button>
+                    )}
                   </div>
+                )}
+                {review.response && (
+                  <p className="mt-2 text-green-600 font-semibold">
+                    Published!
+                  </p>
                 )}
               </div>
             </li>
