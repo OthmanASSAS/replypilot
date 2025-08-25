@@ -3,19 +3,25 @@
 # Tâche en cours
 
 ## Contexte
-Maintenant que l'historique des réponses est visible, nous devons permettre à l'utilisateur de modifier une réponse avant de la publier.
+Maintenant que l'édition des réponses est possible, nous devons permettre à l'utilisateur de sauvegarder les modifications apportées à une suggestion sans la publier immédiatement.
 
 ## Objectif
-Ajouter une fonctionnalité d'édition pour les réponses suggérées par l'IA.
+Implémenter la sauvegarde des modifications d'une suggestion sans publication.
 
 ## Critères d’acceptation
-- Un champ de texte éditable apparaît lorsque l'utilisateur clique sur une suggestion de réponse.
-- L'utilisateur peut modifier le texte de la suggestion.
-- Le bouton "Publier" utilise le texte modifié.
+- Un bouton "Sauvegarder" est disponible en mode édition.
+- Cliquer sur "Sauvegarder" met à jour la suggestion dans la base de données (champ `response` de l'avis).
+- La suggestion sauvegardée est affichée à la place de la suggestion originale.
+- La suggestion sauvegardée n'est pas automatiquement publiée sur Shopify.
 
 ---
 
 # ✅ Tâches Terminées
+
+## ~~Objectif : Ajouter une fonctionnalité d'édition pour les réponses suggérées par l'IA~~ (Terminé)
+- ~~Un champ de texte éditable apparaît lorsque l'utilisateur clique sur une suggestion de réponse.~~
+- ~~L'utilisateur peut modifier le texte de la suggestion.~~
+- ~~Le bouton "Publier" utilise le texte modifié.~~
 
 ## ~~Objectif : Afficher l'historique des réponses pour chaque avis sur la page d'accueil~~ (Terminé)
 - ~~Pour chaque avis, afficher la réponse générée par l'IA (si elle existe).~~

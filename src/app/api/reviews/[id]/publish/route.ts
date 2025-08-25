@@ -4,9 +4,10 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
+    const params = await context.params;
     const reviewId = params.id;
     const { response } = await req.json();
 
@@ -30,7 +31,10 @@ export async function POST(
 
     return NextResponse.json(updatedReview);
   } catch (error) {
-    console.error(`Failed to publish response for review ${params.id}:`, error);
+    console.error(
+      `Failed to publish response for review ${(await context.params).id}:`,
+      error,
+    );
     return NextResponse.json(
       { error: "Failed to publish response" },
       { status: 500 },

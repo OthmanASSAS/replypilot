@@ -23,6 +23,11 @@ export default function ReviewList() {
   const [suggestionLoading, setSuggestionLoading] = useState<
     Map<string, boolean>
   >(new Map());
+  const [editingSuggestionId, setEditingSuggestionId] = useState<string | null>(
+    null,
+  );
+  const [editedSuggestionContent, setEditedSuggestionContent] =
+    useState<string>("");
 
   useEffect(() => {
     async function fetchReviews() {
@@ -65,13 +70,17 @@ export default function ReviewList() {
   };
 
   const handlePublish = async (reviewId: string, responseContent: string) => {
+    const contentToPublish =
+      editingSuggestionId === reviewId
+        ? editedSuggestionContent
+        : responseContent;
     try {
       const res = await fetch(`/api/reviews/${reviewId}/publish`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ response: responseContent }),
+        body: JSON.stringify({ response: contentToPublish }),
       });
 
       if (!res.ok) {
@@ -81,14 +90,27 @@ export default function ReviewList() {
       setReviews((prevReviews) =>
         prevReviews.map((review) =>
           review.id === reviewId
-            ? { ...review, response: responseContent }
+            ? { ...review, response: contentToPublish }
             : review,
         ),
       );
+      setEditingSuggestionId(null);
+      setEditedSuggestionContent("");
     } catch (error) {
       console.error("Error publishing review:", error);
       alert("Failed to publish response.");
     }
+  };
+
+  const handleEditClick = (reviewId: string, currentContent: string) => {
+    setEditingSuggestionId(reviewId);
+    setEditedSuggestionContent(currentContent);
+  };
+
+  const handleSaveEdit = (reviewId: string) => {
+    setSuggestions(new Map(suggestions.set(reviewId, editedSuggestionContent)));
+    setEditingSuggestionId(null);
+    setEditedSuggestionContent("");
   };
 
   if (loading) {
@@ -145,16 +167,51 @@ export default function ReviewList() {
                 {suggestions.has(review.id) && (
                   <div className="mt-4 p-3 bg-gray-100 rounded">
                     <p className="font-semibold">Suggested Response:</p>
-                    <p>{suggestions.get(review.id)}</p>
-                    {!review.response && (
-                      <button
-                        onClick={() =>
-                          handlePublish(review.id, suggestions.get(review.id)!)
+                    {editingSuggestionId === review.id ? (
+                      <textarea
+                        className="w-full p-2 border rounded"
+                        value={editedSuggestionContent}
+                        onChange={(e) =>
+                          setEditedSuggestionContent(e.target.value)
                         }
-                        className="ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                        rows={5}
+                      />
+                    ) : (
+                      <p
+                        onClick={() =>
+                          handleEditClick(
+                            review.id,
+                            suggestions.get(review.id)!,
+                          )
+                        }
+                        className="cursor-pointer hover:underline"
                       >
-                        Publish
-                      </button>
+                        {suggestions.get(review.id)}
+                      </p>
+                    )}
+                    {!review.response && (
+                      <>
+                        {editingSuggestionId === review.id ? (
+                          <button
+                            onClick={() => handleSaveEdit(review.id)}
+                            className="mt-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                          >
+                            Save Edit
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() =>
+                              handlePublish(
+                                review.id,
+                                suggestions.get(review.id)!,
+                              )
+                            }
+                            className="ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                          >
+                            Publish
+                          </button>
+                        )}
+                      </>
                     )}
                   </div>
                 )}

@@ -3,10 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
   req: NextRequest,
-  context: { params: { id: string } },
+  context: { params: Promise<{ id: string }> },
 ) {
   try {
-    const reviewId = context.params.id;
+    const params = await context.params;
+    const reviewId = params.id;
 
     // TODO: Fetch the review from the database to get its content
     // For now, we'll just use the ID in the response.
@@ -16,7 +17,10 @@ export async function POST(
 
     return NextResponse.json({ suggestion });
   } catch (error) {
-    console.error(`Failed to suggest a response for review:`, error);
+    console.error(
+      `Failed to suggest a response for review ${(await context.params).id}:`,
+      error,
+    );
     return NextResponse.json(
       { error: "Failed to suggest a response" },
       { status: 500 },
