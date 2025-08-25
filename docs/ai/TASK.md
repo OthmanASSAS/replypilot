@@ -3,20 +3,26 @@
 # Tâche en cours
 
 ## Contexte
-Maintenant que l'édition des réponses est possible, nous devons permettre à l'utilisateur de sauvegarder les modifications apportées à une suggestion sans la publier immédiatement.
+Maintenant que l'intégration de l'IA est fonctionnelle, nous devons nous assurer que les réponses générées sont de haute qualité et pertinentes.
 
 ## Objectif
-Implémenter la sauvegarde des modifications d'une suggestion sans publication.
+Évaluer la qualité des réponses générées par l'IA et ajuster le prompt si nécessaire.
 
 ## Critères d’acceptation
-- Un bouton "Sauvegarder" est disponible en mode édition.
-- Cliquer sur "Sauvegarder" met à jour la suggestion dans la base de données (champ `response` de l'avis).
-- La suggestion sauvegardée est affichée à la place de la suggestion originale.
-- La suggestion sauvegardée n'est pas automatiquement publiée sur Shopify.
+- Définir une méthode d'évaluation (manuelle ou automatisée).
+- Évaluer un échantillon de réponses générées.
+- Identifier les points faibles du prompt actuel.
+- Proposer des améliorations au prompt.
 
 ---
 
 # ✅ Tâches Terminées
+
+## ~~Objectif : Implémenter la sauvegarde des modifications d'une suggestion sans publication.~~ (Terminé)
+- ~~Un bouton "Sauvegarder" est disponible en mode édition.~~
+- ~~Cliquer sur "Sauvegarder" met à jour la suggestion dans la base de données (champ `response` de l'avis).~~
+- ~~La suggestion sauvegardée est affichée à la place de la suggestion originale.~~
+- ~~La suggestion sauvegardée n'est pas automatiquement publiée sur Shopify.~~
 
 ## ~~Objectif : Ajouter une fonctionnalité d'édition pour les réponses suggérées par l'IA~~ (Terminé)
 - ~~Un champ de texte éditable apparaît lorsque l'utilisateur clique sur une suggestion de réponse.~~
