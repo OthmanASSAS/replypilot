@@ -26,7 +26,15 @@ export async function POST(
     }
 
     // Construct a simple prompt for the LLM
-    const prompt = `You are a helpful assistant for an e-commerce store.\n    Please provide a concise and polite response to the following customer review.\n    Review Title: ${review.title || "N/A"}\n    Review Content: ${review.content}\n    Review Rating: ${review.rating}/5\n\n    Your response should be professional and address the customer's feedback.`;
+    const prompt = `You are a helpful assistant for an e-commerce store.
+    Please provide a concise and polite response to the following customer review.
+    Respond in the same language as the review.
+
+    Review Title: ${review.title || "N/A"}
+    Review Content: ${review.content}
+    Review Rating: ${review.rating}/5
+
+    Your response should be professional and address the customer's feedback.`;
 
     // Call the LLM API
     const completion = await groq.chat.completions.create({

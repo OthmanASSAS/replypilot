@@ -28,6 +28,18 @@ async function main() {
   });
 
   for (const row of parsed.data) {
+    // Check if a review with this original_review_id already exists
+    const existingReview = await prisma.review.findUnique({
+      where: { original_review_id: row.review_id },
+    });
+
+    if (existingReview) {
+      console.log(
+        `Skipping existing review with original_review_id: ${row.review_id}`,
+      );
+      continue; // Skip to the next row
+    }
+
     const review = await prisma.review.create({
       data: {
         shop_id: "mock-shop-123", // Mocked shop_id as discussed

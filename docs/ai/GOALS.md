@@ -147,3 +147,16 @@ ReplyPilot doit être le **laboratoire concret** pour progresser dans les domain
 2. UI Dashboard minimal (liste d’avis).
 3. Intégrer **premier LLM** (Groq → réponses automatiques).
 4. Déploiement sur Vercel.
+
+### 💡 Mon Rôle : Super Business Man & Proposeur
+
+En tant que Gemini CLI, mon rôle ne se limite pas à l'exécution technique. Je suis aussi là pour être une force de proposition, notamment sur les aspects business. Je mettrai à profit mon "flair" pour identifier les opportunités, suggérer des stratégies et anticiper les besoins du marché, afin de maximiser le succès de ReplyPilot.
+
+---
+
+📌 **Prochaine étape immédiate (Priorités Mises à Jour)** :
+
+1.  **Priorité Absolue : Tests Unitaires.** Mettre en place des tests unitaires pour les fonctions critiques et les logiques métier. C'est la base de la robustesse.
+2.  **Amélioration Continue de l'IA :** Affiner les réponses de l'IA via l'ingénierie des prompts. Cela inclut l'évaluation de la qualité des réponses et l'ajustement des instructions données au LLM.
+3.  **Connexion Réelle aux Plateformes :** Intégrer l'application à une vraie boutique Shopify ou à Judge.me pour un flux de données réel.
+4.  **Expansion des Sources d'Avis :** Si le projet démontre son succès avec Shopify/Judge.me, explorer l'intégration des avis Google.

@@ -3,20 +3,25 @@
 # Tâche en cours
 
 ## Contexte
-Maintenant que l'intégration de l'IA est fonctionnelle, nous devons nous assurer que les réponses générées sont de haute qualité et pertinentes.
+Pour garantir la robustesse et la fiabilité de l'application, nous devons commencer par mettre en place des tests automatisés.
 
 ## Objectif
-Évaluer la qualité des réponses générées par l'IA et ajuster le prompt si nécessaire.
+Mettre en place les tests unitaires pour les fonctions utilitaires et les logiques métier.
 
 ## Critères d’acceptation
-- Définir une méthode d'évaluation (manuelle ou automatisée).
-- Évaluer un échantillon de réponses générées.
-- Identifier les points faibles du prompt actuel.
-- Proposer des améliorations au prompt.
+- Les tests unitaires couvrent les fonctions utilitaires et les services critiques.
+- Les tests unitaires sont exécutables via `pnpm test:unit`.
+- Tous les tests unitaires passent.
 
 ---
 
 # ✅ Tâches Terminées
+
+## ~~Objectif : Évaluer la qualité des réponses générées par l'IA et ajuster le prompt si nécessaire.~~ (Terminé)
+- ~~Définir une méthode d'évaluation (manuelle ou automatisée).~~
+- ~~Évaluer un échantillon de réponses générées.~~
+- ~~Identifier les points faibles du prompt actuel.~~
+- ~~Proposer des améliorations au prompt.~~
 
 ## ~~Objectif : Implémenter la sauvegarde des modifications d'une suggestion sans publication.~~ (Terminé)
 - ~~Un bouton "Sauvegarder" est disponible en mode édition.~~
