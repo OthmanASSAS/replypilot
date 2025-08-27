@@ -16,14 +16,24 @@
     "db:seed": "prisma db seed"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.1",
     "@prisma/client": "^6.14.0",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
     "@supabase/supabase-js": "^2.55.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.542.0",
     "next": "15.5.0",
     "openai": "^5.15.0",
     "papaparse": "^5.5.3",
     "prisma": "^6.14.0",
+    "puppeteer": "^24.17.0",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-hook-form": "^7.62.0",
+    "tailwind-merge": "^3.3.1",
+    "zod": "^4.1.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -49,6 +59,7 @@
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "tsx": "^4.20.5",
+    "tw-animate-css": "^1.3.7",
     "typescript": "^5",
     "vitest": "^3.2.4"
   },

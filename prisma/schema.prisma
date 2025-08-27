@@ -1,5 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// filepath: prisma/schema.prisma
 
 generator client {
   provider = "prisma-client-js"
@@ -7,23 +6,17 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model Review {
-  id        String   @id @default(cuid()) // Notre ID interne
-  shop_id   String   // L'ID de la boutique, essentiel pour le multi-tenant
-  content   String   // Le corps de l'avis (vient de "body" dans le CSV)
-  rating    Int      // La note
-  response  String?  // La réponse générée par l'IA (initialement vide)
-
-  // On peut garder les données originales du CSV pour plus de contexte
-  original_review_id String?  @unique
-  title              String?
-  reviewer           String?
-  product_title      String?
-  created_at         DateTime
-
-  @@index([shop_id])
+model Analysis {
+  id          String   @id @default(cuid())
+  url         String
+  email       String
+  status      String   // "analyzing", "completed", "failed"
+  miniReport  Json?    // Résultats analyse gratuite
+  fullReport  Json?    // Rapport complet payant
+  createdAt   DateTime @default(now())
+  paidAt      DateTime?
 }

@@ -27,7 +27,9 @@ describe("Prisma Client", () => {
   });
 
   afterEach(() => {
-    process.env.NODE_ENV = originalNodeEnv;
+    if (originalNodeEnv !== undefined) {
+      vi.stubEnv("NODE_ENV", originalNodeEnv);
+    }
   });
 
   it("should be an instance of the mocked prisma client", async () => {
