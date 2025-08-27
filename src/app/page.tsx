@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -16,6 +17,7 @@ export default function Home() {
   const [url, setUrl] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,12 +34,21 @@ export default function Home() {
       });
 
       if (response.ok) {
-        // Reset form on success
-        setUrl("");
-        setEmail("");
-        alert(
-          "Analyse lancée ! Vous recevrez bientôt votre rapport par email.",
-        );
+        const result = await response.json();
+        const { data } = result;
+
+        const params = new URLSearchParams({
+          url: data.url,
+          loadTime: data.loadTime,
+          title: data.title,
+          metaDescription: data.metaDescription,
+          h1: data.h1.join(", "),
+          h2: data.h2.join(", "),
+          imageCount: data.imageCount.toString(),
+          language: data.language,
+        });
+
+        router.push(`/report?${params.toString()}`);
       } else {
         throw new Error("Erreur lors de l'analyse");
       }

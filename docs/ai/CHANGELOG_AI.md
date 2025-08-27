@@ -2,6 +2,14 @@
 
 # Changelog IA
 
+### 2025-08-27 – Corrections et Améliorations des Tests
+
+- **Fix**: Résolution de l'erreur `ReferenceError: describe is not defined` en configurant `globals: true` dans `vitest.config.mjs`.
+- **Fix**: Résolution de l'erreur `ReferenceError: React is not defined` en configurant `jsx: "react-jsx"` dans `tsconfig.json` et en supprimant les imports explicites de React dans les fichiers de test.
+- **Fix**: Résolution de l'erreur `Invalid Chai property: toBeInTheDocument` en configurant `setupFiles: ["./src/setupTests.ts"]` dans `vitest.config.mjs` et en utilisant `import "@testing-library/jest-dom";` dans `src/setupTests.ts`.
+- **Fix**: Résolution des erreurs ESLint `react/no-unescaped-entities` dans `src/app/report/page.tsx` en échappant les apostrophes avec `&apos;`.
+- **Warning**: Les avertissements `'_input' is defined but never used` et `'_init' is defined but never used` dans `src/app/page.test.tsx` sont toujours présents mais n'empêchent pas le bon fonctionnement des tests.
+
 ### 2025-08-26 – SITE ANALYZER MVP COMPLET
 
 - **Feature**: API `/api/analyze` avec scraping Puppeteer fonctionnel
