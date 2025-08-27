@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Card,
@@ -35,20 +35,9 @@ export default function Home() {
 
       if (response.ok) {
         const result = await response.json();
-        const { data } = result;
+        const { analysisId } = result;
 
-        const params = new URLSearchParams({
-          url: data.url,
-          loadTime: data.loadTime,
-          title: data.title,
-          metaDescription: data.metaDescription,
-          h1: data.h1.join(", "),
-          h2: data.h2.join(", "),
-          imageCount: data.imageCount.toString(),
-          language: data.language,
-        });
-
-        router.push(`/report?${params.toString()}`);
+        router.push(`/report?id=${analysisId}`);
       } else {
         throw new Error("Erreur lors de l'analyse");
       }

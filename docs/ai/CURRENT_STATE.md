@@ -25,7 +25,7 @@
 ## ⚡ Prochaines étapes immédiates (Sprint 1 - Lead Magnet MVP)
 
 ### **🔥 Cette semaine**
-1. **🕷️ Enrichir API analyze**: Ajouter scraping avis produits (Judge.me, Shopify, Yotpo)
+1. **✅ Enrichir API analyze**: Scraping avis produits Loox (iframe) fonctionnel
 2. **🤖 Intégrer Groq**: Sentiment analysis + extraction mots-clés
 3. **📄 Créer template PDF**: Mini-rapport professionnel 2-3 pages
 4. **📧 Setup service email**: Resend/SendGrid pour envoi automatique
@@ -99,5 +99,18 @@
 - **Problème**: Tests E2E manquants bloquent `pnpm verify`
 - **Solution**: Retirer E2E de verify temporairement
 - **Résultat**: CI passe, développement non bloqué ✅
+
+### **✅ Scraping Avis Loox Iframe (27/08/2025)**
+- **Fonctionnalité**: Scraping automatique des avis Loox dans les iframes
+- **Problème résolu**: Accès au contenu iframe cross-origin
+- **Solution**: Navigation directe vers l'URL iframe avec Puppeteer
+- **Résultat**: 20 avis Loox extraits avec succès (auteur, note, commentaire)
+- **Platforms supportées**: Loox (iframe), support Judge.me/Yotpo/Shopify à venir
+
+### **🔧 Améliorations Techniques Récentes**
+- **Sélecteurs multiples**: Détection robuste des widgets d'avis
+- **Gestion d'erreurs**: Fallbacks pour iframe inaccessibles
+- **Logs détaillés**: Debug et monitoring du scraping
+- **Performance**: Stratégie de scroll intelligent pour lazy loading
 
 **📚 Documentation détaillée**: Voir `TECHNICAL_SOLUTIONS.md` pour solutions complètes et "ce qu'il faut éviter"

@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { vi, Mock } from "vitest"; // Import Mock from vitest
+import React from "react";
 import ReportPage from "./page";
 import * as NextNavigation from "next/navigation";
 

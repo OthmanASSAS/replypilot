@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi, afterEach } from "vitest";
 
 // Create a mock for the prisma object
 const mockPrisma = {
-  review: {
+  analysis: {
     findUnique: vi.fn(),
     create: vi.fn(),
     update: vi.fn(),
@@ -35,11 +35,11 @@ describe("Prisma Client", () => {
   it("should be an instance of the mocked prisma client", async () => {
     const { prisma } = await import("./prisma");
     expect(prisma).toBeDefined();
-    expect(prisma.review).toBeDefined();
-    expect(prisma.review.findUnique).toBeInstanceOf(Function);
-    expect(prisma.review.create).toBeInstanceOf(Function);
-    expect(prisma.review.update).toBeInstanceOf(Function);
-    expect(prisma.review.findMany).toBeInstanceOf(Function);
+    expect(prisma.analysis).toBeDefined();
+    expect(prisma.analysis.findUnique).toBeInstanceOf(Function);
+    expect(prisma.analysis.create).toBeInstanceOf(Function);
+    expect(prisma.analysis.update).toBeInstanceOf(Function);
+    expect(prisma.analysis.findMany).toBeInstanceOf(Function);
   });
 
   it("should be a singleton instance", async () => {
@@ -49,9 +49,9 @@ describe("Prisma Client", () => {
   });
 
   // Example of how to test a method call
-  it("should call findMany on review model", async () => {
+  it("should call findMany on analysis model", async () => {
     const { prisma } = await import("./prisma");
-    await prisma.review.findMany();
-    expect(mockPrisma.review.findMany).toHaveBeenCalledTimes(1);
+    await prisma.analysis.findMany();
+    expect(mockPrisma.analysis.findMany).toHaveBeenCalledTimes(1);
   });
 });
