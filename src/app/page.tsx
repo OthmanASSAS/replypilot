@@ -10,7 +10,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import SafeMailto from "@/components/safe-mailto";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import ROICalculator from "@/components/roi-calculator";
 
 export default function Home() {
@@ -24,14 +30,31 @@ export default function Home() {
     posthog.capture("cta_click", { location });
   };
 
-  const calculateROI = (reviews: number, rating: number, monthlyRevenue: number) => {
+  const calculateROI = (
+    reviews: number,
+    rating: number,
+    monthlyRevenue: number,
+  ) => {
     // Calcul basé sur les études de conversion
     const ratingImprovement = Math.max(0, 4.8 - rating); // Potentiel jusqu'à 4.8
     const conversionBoost = ratingImprovement * 0.18; // +18% par 0.1 étoile
     const potentialGain = monthlyRevenue * conversionBoost;
-    
+
     setCalculatorResult(Math.round(potentialGain));
-    posthog.capture("calculator_used", { result: potentialGain, reviews, rating, revenue: monthlyRevenue });
+    posthog.capture("calculator_used", {
+      result: potentialGain,
+      reviews,
+      rating,
+      revenue: monthlyRevenue,
+    });
+
+    // Scroll to result on mobile
+    setTimeout(() => {
+      const resultElement = document.getElementById("calculator-result");
+      if (resultElement) {
+        resultElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 100);
   };
 
   // Removed unused fieldClasses
@@ -55,7 +78,10 @@ export default function Home() {
                 Accueil
                 <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-600 to-blue-700" />
               </Link>
-              <Link href="/blog" className="text-slate-600 hover:text-blue-600 transition-colors font-medium">
+              <Link
+                href="/blog"
+                className="text-slate-600 hover:text-blue-600 transition-colors font-medium"
+              >
                 Blog
               </Link>
             </nav>
@@ -84,36 +110,58 @@ export default function Home() {
                 <span className="text-white">en 30 secondes</span>
               </h1>
               <p className="text-xl lg:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed mb-10">
-                Transformez vos avis clients en ambassadeurs et découvrez votre potentiel de croissance avec notre calculateur exclusif
+                Transformez vos avis clients en ambassadeurs et découvrez votre
+                potentiel de croissance avec notre calculateur exclusif
               </p>
-              
+
               <div className="max-w-4xl mx-auto">
                 <ROICalculator onCalculate={calculateROI} />
               </div>
-              
+
               {calculatorResult && (
-                <div className="mt-12 max-w-3xl mx-auto">
+                <div id="calculator-result" className="mt-12 max-w-3xl mx-auto">
                   <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-green-500 via-emerald-500 to-teal-600 p-8 shadow-2xl">
                     <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20"></div>
                     <div className="relative text-center text-white">
                       <div className="text-6xl mb-4">🚀</div>
                       <h3 className="text-3xl lg:text-4xl font-bold mb-4">
-                        Potentiel de gain : +{calculatorResult.toLocaleString()}€/mois
+                        Potentiel de gain : +{calculatorResult.toLocaleString()}
+                        €/mois
                       </h3>
                       <p className="text-green-100 text-lg mb-6 max-w-2xl mx-auto">
-                        En optimisant vos avis clients, vous pourriez augmenter votre CA de <strong className="text-white">{calculatorResult.toLocaleString()}€ par mois</strong> !
+                        En optimisant vos avis clients, vous pourriez augmenter
+                        votre CA de{" "}
+                        <strong className="text-white">
+                          {calculatorResult.toLocaleString()}€ par mois
+                        </strong>{" "}
+                        !
                       </p>
                       <Button
                         size="lg"
-                        className="h-14 text-lg px-8 bg-white text-green-600 hover:bg-gray-100 font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                        className="h-14 text-base sm:text-lg px-4 sm:px-8 bg-white text-green-600 hover:bg-gray-100 font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all w-full sm:w-auto"
                         onClick={() => {
                           handleCtaClick("calculator_result");
-                          document.getElementById("form-section")?.scrollIntoView({ behavior: "smooth" });
+                          document
+                            .getElementById("form-section")
+                            ?.scrollIntoView({ behavior: "smooth" });
                         }}
                       >
-                        Récupérer ces gains → Audit gratuit
-                        <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        <span className="hidden sm:inline">
+                          Découvrir comment optimiser → Audit gratuit
+                        </span>
+                        <span className="sm:hidden">Audit gratuit</span>
+                        <svg
+                          className="w-4 h-4 sm:w-5 sm:h-5 ml-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13 7l5 5m0 0l-5 5m5-5H6"
+                          />
                         </svg>
                       </Button>
                     </div>
@@ -137,10 +185,11 @@ export default function Home() {
                 Ce que vous recevez
               </h2>
               <p className="text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-medium">
-                Un audit complet et actionnable pour transformer vos avis en croissance mesurable
+                Un audit complet et actionnable pour transformer vos avis en
+                croissance mesurable
               </p>
             </div>
-            
+
             <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-10">
               {[
                 {
@@ -148,28 +197,32 @@ export default function Home() {
                   title: "3 actions prioritaires",
                   desc: "Matrice Impact × Effort pour prioriser vos améliorations et maximiser le ROI rapidement.",
                   gradient: "from-blue-500 to-cyan-500",
-                  shadowColor: "shadow-blue-200"
+                  shadowColor: "shadow-blue-200",
                 },
                 {
-                  icon: "🔍", 
+                  icon: "🔍",
                   title: "5 points à corriger",
                   desc: "Analyse détaillée des friction points : qualité produit, logistique, UX et service client.",
                   gradient: "from-purple-500 to-pink-500",
-                  shadowColor: "shadow-purple-200"
+                  shadowColor: "shadow-purple-200",
                 },
                 {
                   icon: "📊",
-                  title: "Mini-benchmark concurrentiel", 
+                  title: "Mini-benchmark concurrentiel",
                   desc: "Comparaison avec 1 concurrent direct : forces, faiblesses et opportunités de différenciation.",
                   gradient: "from-emerald-500 to-teal-500",
-                  shadowColor: "shadow-emerald-200"
-                }
+                  shadowColor: "shadow-emerald-200",
+                },
               ].map((item) => (
                 <div key={item.title} className="group relative">
                   <div className="absolute -inset-1 bg-gradient-to-r from-gray-200 to-gray-100 rounded-3xl opacity-0 group-hover:opacity-100 transition duration-300 blur-sm"></div>
                   <div className="relative bg-white border-2 border-slate-100 p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full">
-                    <div className={`w-20 h-20 rounded-3xl bg-gradient-to-r ${item.gradient} flex items-center justify-center text-3xl mb-8 shadow-xl ${item.shadowColor}/30`}>
-                      <span className="flex items-center justify-center">{item.icon}</span>
+                    <div
+                      className={`w-20 h-20 rounded-3xl bg-gradient-to-r ${item.gradient} flex items-center justify-center text-3xl mb-8 shadow-xl ${item.shadowColor}/30`}
+                    >
+                      <span className="flex items-center justify-center">
+                        {item.icon}
+                      </span>
                     </div>
                     <h3 className="text-2xl font-black mb-6 text-slate-900 leading-tight">
                       {item.title}
@@ -193,102 +246,149 @@ export default function Home() {
               {calculatorResult ? (
                 <>
                   <div className="mb-6">
-                    <div className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-md rounded-full text-white font-bold text-lg border border-white/30">
-                      🎯 Récupérez vos +{calculatorResult.toLocaleString()}€/mois
+                    <div className="inline-flex items-center px-4 sm:px-6 py-3 bg-white/20 backdrop-blur-md rounded-full text-white font-bold text-base sm:text-lg border border-white/30">
+                      <span className="hidden sm:inline">
+                        🎯 Potentiel détecté : +
+                        {calculatorResult.toLocaleString()}€/mois
+                      </span>
+                      <span className="sm:hidden">
+                        🎯 +{calculatorResult.toLocaleString()}€/mois
+                      </span>
                     </div>
                   </div>
                   <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-white leading-tight">
-                    Transformez ce potentiel en <span className="text-yellow-300">résultats réels</span>
+                    Transformez ce potentiel en{" "}
+                    <span className="text-yellow-300">résultats réels</span>
                   </h2>
                   <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-                    Audit gratuit de votre page produit en 24h. Plan d'action personnalisé. Sans carte bancaire.
+                    Audit gratuit de votre page produit en 24h. Plan
+                    d&apos;action personnalisé. Sans carte bancaire.
                   </p>
                 </>
               ) : (
                 <>
                   <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-white leading-tight">
-                    Audit <span className="text-yellow-300">gratuit</span> sous 24h
+                    Audit <span className="text-yellow-300">gratuit</span> sous
+                    24h
                   </h2>
                   <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-                    Analyse complète basée sur les avis de votre page produit. Plan d'action personnalisé. Sans carte.
+                    Analyse complète basée sur les avis de votre page produit.
+                    Plan d&apos;action personnalisé. Sans carte.
                   </p>
                 </>
               )}
 
               <div className="max-w-2xl mx-auto">
                 <div className="bg-white/10 backdrop-blur-md p-8 lg:p-10 rounded-2xl shadow-2xl border border-white/20">
-                  <form action={action} className="space-y-6" aria-label="lead-capture">
+                  <form
+                    action={action}
+                    className="space-y-6"
+                    aria-label="lead-capture"
+                  >
                     <div className="grid gap-6">
                       <div className="text-left">
-                        <Label htmlFor="url" className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider">
+                        <Label
+                          htmlFor="url"
+                          className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider"
+                        >
                           🔗 URL de la page produit
                         </Label>
-                        <Input 
-                          id="url" 
-                          name="url" 
-                          type="url" 
-                          required 
-                          placeholder="https://votre-boutique.com/products/produit-a-analyser" 
+                        <Input
+                          id="url"
+                          name="url"
+                          type="url"
+                          required
+                          placeholder="https://votre-boutique.com/products/produit-a-analyser"
                           className="h-14 w-full rounded-xl border border-white/30 bg-white/90 backdrop-blur-md px-4 py-3 text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-white focus:bg-white shadow-lg"
                         />
                       </div>
-                      
+
                       <div className="grid md:grid-cols-2 gap-6">
                         <div className="text-left">
-                          <Label htmlFor="email" className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider">
+                          <Label
+                            htmlFor="email"
+                            className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider"
+                          >
                             📧 Email professionnel
                           </Label>
-                          <Input 
-                            id="email" 
-                            name="email" 
-                            type="email" 
-                            required 
-                            placeholder="vous@votresociete.com" 
+                          <Input
+                            id="email"
+                            name="email"
+                            type="email"
+                            required
+                            placeholder="vous@votresociete.com"
                             className="h-14 w-full rounded-xl border border-white/30 bg-white/90 backdrop-blur-md px-4 py-3 text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-white focus:bg-white shadow-lg"
                           />
                         </div>
-                        
+
                         <div className="text-left">
                           <Label className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider">
-                            ⭐ Outil d'avis (si connu)
+                            ⭐ Outil d&apos;avis (si connu)
                           </Label>
-                          <Select onValueChange={setStackValue} name="stack-display">
+                          <Select
+                            onValueChange={setStackValue}
+                            name="stack-display"
+                          >
                             <SelectTrigger className="!h-14 w-full rounded-xl border border-white/30 bg-white/90 backdrop-blur-md px-4 py-3 text-slate-800 focus:outline-none focus:ring-2 focus:ring-white focus:bg-white shadow-lg [&>span]:text-slate-500">
                               <SelectValue placeholder="Sélectionnez un outil" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="non-precise">Non précisé</SelectItem>
+                              <SelectItem value="non-precise">
+                                Non précisé
+                              </SelectItem>
                               <SelectItem value="judgeme">Judge.me</SelectItem>
                               <SelectItem value="loox">Loox</SelectItem>
                               <SelectItem value="yotpo">Yotpo</SelectItem>
-                              <SelectItem value="avis-verifies">Avis Vérifiés</SelectItem>
+                              <SelectItem value="avis-verifies">
+                                Avis Vérifiés
+                              </SelectItem>
                               <SelectItem value="autre">Autre</SelectItem>
                             </SelectContent>
                           </Select>
-                          <input type="hidden" name="stack" value={stackValue} />
+                          <input
+                            type="hidden"
+                            name="stack"
+                            value={stackValue}
+                          />
                         </div>
                       </div>
                     </div>
 
                     {/* Honeypot anti-bot */}
-                    <input type="text" name="company_website" className="hidden" tabIndex={-1} autoComplete="off" />
+                    <input
+                      type="text"
+                      name="company_website"
+                      className="hidden"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
 
                     <div className="pt-4">
                       <Button
                         type="submit"
                         disabled={isPending}
-                        className="w-full h-16 text-lg bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 hover:from-yellow-500 hover:via-orange-500 hover:to-red-500 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all border-0"
+                        className="w-full h-16 text-base sm:text-lg bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 hover:from-yellow-500 hover:via-orange-500 hover:to-red-500 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all border-0"
                         onClick={() => handleCtaClick("form_submit")}
                       >
                         {isPending ? (
                           <>
-                            <span className="animate-spin mr-3">⏳</span>
-                            Analyse en cours...
+                            <span className="animate-spin mr-2 sm:mr-3">
+                              ⏳
+                            </span>
+                            <span className="hidden sm:inline">
+                              Analyse en cours...
+                            </span>
+                            <span className="sm:hidden">En cours...</span>
                           </>
                         ) : (
                           <>
-                            <span className="text-2xl mr-3">🚀</span>
-                            Recevoir mon audit en 24h
+                            <span className="text-xl sm:text-2xl mr-2 sm:mr-3">
+                              🚀
+                            </span>
+                            <span className="hidden sm:inline">
+                              Recevoir mon audit en 24h
+                            </span>
+                            <span className="sm:hidden">Audit gratuit</span>
                           </>
                         )}
                       </Button>
@@ -298,15 +398,21 @@ export default function Home() {
                   {/* États */}
                   {state?.ok && (
                     <div className="mt-6 p-4 bg-green-500/20 border border-green-400/30 rounded-xl backdrop-blur-sm">
-                      <p role="status" className="text-green-100 font-semibold flex items-center justify-center">
+                      <p
+                        role="status"
+                        className="text-green-100 font-semibold flex items-center justify-center"
+                      >
                         <span className="text-2xl mr-2">✅</span>
-                        Merci ! Nous lançons l'analyse. Vous recevez votre audit par email sous 24h.
+                        Merci ! Nous lançons l&apos;analyse. Vous recevez votre
+                        audit par email sous 24h.
                       </p>
                     </div>
                   )}
                   {state?.error && (
                     <div className="mt-6 p-4 bg-red-500/20 border border-red-400/30 rounded-xl backdrop-blur-sm">
-                      <p role="alert" className="text-red-100 font-semibold">{state.error}</p>
+                      <p role="alert" className="text-red-100 font-semibold">
+                        {state.error}
+                      </p>
                     </div>
                   )}
 
@@ -327,17 +433,21 @@ export default function Home() {
                       </div>
                     </div>
                     <p className="text-white/60 text-xs mt-4 text-center">
-                      Données utilisées uniquement pour l'audit. 
-                      <a href="/privacy" className="underline hover:text-white transition-colors ml-1">
+                      Données utilisées uniquement pour l&apos;audit.
+                      <a
+                        href="/privacy"
+                        className="underline hover:text-white transition-colors ml-1"
+                      >
                         Politique de confidentialité
                       </a>
                     </p>
                   </div>
                 </div>
               </div>
-              
+
               <p className="mt-8 text-blue-200 text-sm max-w-2xl mx-auto">
-                🛠️ Compatible avec Judge.me, Loox, Yotpo, Avis Vérifiés, et tous les systèmes d'avis e-commerce
+                🛠️ Compatible avec Judge.me, Loox, Yotpo, Avis Vérifiés, et tous
+                les systèmes d&apos;avis e-commerce
               </p>
             </div>
           </div>
@@ -356,45 +466,115 @@ export default function Home() {
                   Tout ce que vous devez savoir
                 </h2>
               </div>
-              <div itemScope itemType="https://schema.org/FAQPage" className="space-y-6">
-                <div itemScope itemProp="mainEntity" itemType="https://schema.org/Question" className="group">
+              <div
+                itemScope
+                itemType="https://schema.org/FAQPage"
+                className="space-y-6"
+              >
+                <div
+                  itemScope
+                  itemProp="mainEntity"
+                  itemType="https://schema.org/Question"
+                  className="group"
+                >
                   <details className="bg-white border-2 border-slate-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-                    <summary className="text-xl font-black cursor-pointer text-slate-900 hover:text-blue-600 transition-colors list-none [&::-webkit-details-marker]:hidden" itemProp="name">
+                    <summary
+                      className="text-xl font-black cursor-pointer text-slate-900 hover:text-blue-600 transition-colors list-none [&::-webkit-details-marker]:hidden"
+                      itemProp="name"
+                    >
                       <div className="flex items-center justify-between">
-                        <span>C'est vraiment gratuit ?</span>
-                        <span className="text-2xl text-blue-600 group-open:rotate-45 transition-transform">+</span>
+                        <span>C&apos;est vraiment gratuit ?</span>
+                        <span className="text-2xl text-blue-600 group-open:rotate-45 transition-transform">
+                          +
+                        </span>
                       </div>
                     </summary>
-                    <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                      <p className="mt-6 text-slate-600 text-lg leading-relaxed font-medium" itemProp="text">Oui, le premier audit est 100% gratuit pour vous montrer la valeur de notre analyse. Si les résultats vous plaisent, nous pourrons discuter de rapports récurrents sur un plan mensuel.</p>
+                    <div
+                      itemScope
+                      itemProp="acceptedAnswer"
+                      itemType="https://schema.org/Answer"
+                    >
+                      <p
+                        className="mt-6 text-slate-600 text-lg leading-relaxed font-medium"
+                        itemProp="text"
+                      >
+                        Oui, le premier audit est 100% gratuit pour vous montrer
+                        la valeur de notre analyse. Si les résultats vous
+                        plaisent, nous pourrons discuter de rapports récurrents
+                        sur un plan mensuel.
+                      </p>
                     </div>
                   </details>
                 </div>
-                
-                <div itemScope itemProp="mainEntity" itemType="https://schema.org/Question" className="group">
+
+                <div
+                  itemScope
+                  itemProp="mainEntity"
+                  itemType="https://schema.org/Question"
+                  className="group"
+                >
                   <details className="bg-white border-2 border-slate-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-                    <summary className="text-xl font-black cursor-pointer text-slate-900 hover:text-blue-600 transition-colors list-none [&::-webkit-details-marker]:hidden" itemProp="name">
+                    <summary
+                      className="text-xl font-black cursor-pointer text-slate-900 hover:text-blue-600 transition-colors list-none [&::-webkit-details-marker]:hidden"
+                      itemProp="name"
+                    >
                       <div className="flex items-center justify-between">
                         <span>Comment récupérez-vous les avis ?</span>
-                        <span className="text-2xl text-blue-600 group-open:rotate-45 transition-transform">+</span>
+                        <span className="text-2xl text-blue-600 group-open:rotate-45 transition-transform">
+                          +
+                        </span>
                       </div>
                     </summary>
-                    <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                      <p className="mt-6 text-slate-600 text-lg leading-relaxed font-medium" itemProp="text">Pour l'audit initial, nous nous basons sur les avis publiquement visibles sur l'URL que vous nous fournissez. Aucun accès administrateur n'est requis.</p>
+                    <div
+                      itemScope
+                      itemProp="acceptedAnswer"
+                      itemType="https://schema.org/Answer"
+                    >
+                      <p
+                        className="mt-6 text-slate-600 text-lg leading-relaxed font-medium"
+                        itemProp="text"
+                      >
+                        Pour l&apos;audit initial, nous nous basons sur les avis
+                        publiquement visibles sur l&apos;URL que vous nous
+                        fournissez. Aucun accès administrateur n&apos;est
+                        requis.
+                      </p>
                     </div>
                   </details>
                 </div>
-                
-                <div itemScope itemProp="mainEntity" itemType="https://schema.org/Question" className="group">
+
+                <div
+                  itemScope
+                  itemProp="mainEntity"
+                  itemType="https://schema.org/Question"
+                  className="group"
+                >
                   <details className="bg-white border-2 border-slate-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-                    <summary className="text-xl font-black cursor-pointer text-slate-900 hover:text-blue-600 transition-colors list-none [&::-webkit-details-marker]:hidden" itemProp="name">
+                    <summary
+                      className="text-xl font-black cursor-pointer text-slate-900 hover:text-blue-600 transition-colors list-none [&::-webkit-details-marker]:hidden"
+                      itemProp="name"
+                    >
                       <div className="flex items-center justify-between">
                         <span>Mes données sont-elles en sécurité ?</span>
-                        <span className="text-2xl text-blue-600 group-open:rotate-45 transition-transform">+</span>
+                        <span className="text-2xl text-blue-600 group-open:rotate-45 transition-transform">
+                          +
+                        </span>
                       </div>
                     </summary>
-                    <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                      <p className="mt-6 text-slate-600 text-lg leading-relaxed font-medium" itemProp="text">Absolument. Votre URL et votre email sont utilisés uniquement pour réaliser et vous envoyer l'audit. Ils ne sont jamais partagés. Notre service est conforme au RGPD.</p>
+                    <div
+                      itemScope
+                      itemProp="acceptedAnswer"
+                      itemType="https://schema.org/Answer"
+                    >
+                      <p
+                        className="mt-6 text-slate-600 text-lg leading-relaxed font-medium"
+                        itemProp="text"
+                      >
+                        Absolument. Votre URL et votre email sont utilisés
+                        uniquement pour réaliser et vous envoyer l&apos;audit.
+                        Ils ne sont jamais partagés. Notre service est conforme
+                        au RGPD.
+                      </p>
                     </div>
                   </details>
                 </div>
@@ -415,11 +595,12 @@ export default function Home() {
                   ReplyPilot
                 </span>
               </div>
-              
+
               <p className="text-slate-400 text-lg mb-8 max-w-2xl mx-auto">
-                Transformez vos avis clients en croissance mesurable avec notre analyse IA
+                Transformez vos avis clients en croissance mesurable avec notre
+                analyse IA
               </p>
-              
+
               <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-slate-300 mb-8">
                 <div className="flex items-center">
                   <span className="text-blue-400 mr-2">🚀</span>
@@ -434,14 +615,18 @@ export default function Home() {
                   RGPD Compliant
                 </div>
               </div>
-              
+
               <div className="pt-8 border-t border-slate-700">
                 <p className="text-slate-500 text-sm mb-2">
-                  © {new Date().getFullYear()} ReplyPilot. Tous droits réservés.
+                  © {new Date().getFullYear()} ReplyPilot. Tous droits
+                  réservés.
                 </p>
                 <p className="text-slate-500 text-sm">
-                  Une question ? Contactez-nous : 
-                  <SafeMailto email="davimi.team@gmail.com" className="text-blue-400 hover:text-blue-300 underline ml-1 transition-colors">
+                  Une question ? Contactez-nous :
+                  <SafeMailto
+                    email="davimi.team@gmail.com"
+                    className="text-blue-400 hover:text-blue-300 underline ml-1 transition-colors"
+                  >
                     davimi.team@gmail.com
                   </SafeMailto>
                 </p>

@@ -6,7 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 interface ROICalculatorProps {
-  onCalculate: (reviews: number, rating: number, monthlyRevenue: number) => void;
+  onCalculate: (
+    reviews: number,
+    rating: number,
+    monthlyRevenue: number,
+  ) => void;
 }
 
 export default function ROICalculator({ onCalculate }: ROICalculatorProps) {
@@ -16,7 +20,7 @@ export default function ROICalculator({ onCalculate }: ROICalculatorProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const reviewsNum = parseInt(reviews);
     const ratingNum = parseFloat(rating);
     const revenueNum = parseInt(monthlyRevenue);
@@ -26,7 +30,8 @@ export default function ROICalculator({ onCalculate }: ROICalculatorProps) {
     }
   };
 
-  const fieldClasses = "h-14 w-full rounded-xl border border-white/30 bg-white/90 backdrop-blur-md px-4 py-3 text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-white focus:bg-white shadow-lg [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]";
+  const fieldClasses =
+    "h-14 w-full rounded-xl border border-white/30 bg-white/90 backdrop-blur-md px-4 py-3 text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-white focus:bg-white shadow-lg [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]";
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -34,8 +39,11 @@ export default function ROICalculator({ onCalculate }: ROICalculatorProps) {
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid lg:grid-cols-3 gap-6">
             <div className="text-left">
-              <Label htmlFor="reviews" className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider">
-                📊 Nombre d'avis actuels
+              <Label
+                htmlFor="reviews"
+                className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider"
+              >
+                📊 Nombre d&apos;avis actuels
               </Label>
               <Input
                 id="reviews"
@@ -47,9 +55,12 @@ export default function ROICalculator({ onCalculate }: ROICalculatorProps) {
                 required
               />
             </div>
-            
+
             <div className="text-left">
-              <Label htmlFor="rating" className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider">
+              <Label
+                htmlFor="rating"
+                className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider"
+              >
                 ⭐ Note moyenne actuelle
               </Label>
               <Input
@@ -65,9 +76,12 @@ export default function ROICalculator({ onCalculate }: ROICalculatorProps) {
                 required
               />
             </div>
-            
+
             <div className="text-left">
-              <Label htmlFor="revenue" className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider">
+              <Label
+                htmlFor="revenue"
+                className="font-semibold mb-3 block text-white/90 text-sm uppercase tracking-wider"
+              >
                 💰 CA produit/mois (€)
               </Label>
               <Input
@@ -81,23 +95,26 @@ export default function ROICalculator({ onCalculate }: ROICalculatorProps) {
               />
             </div>
           </div>
-          
+
           <div className="text-center">
             <Button
               type="submit"
               size="lg"
-              className="h-16 text-lg px-12 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 hover:from-yellow-500 hover:via-orange-500 hover:to-red-500 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all border-0"
+              className="h-16 text-base sm:text-lg px-4 sm:px-12 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 hover:from-yellow-500 hover:via-orange-500 hover:to-red-500 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all border-0 w-full"
             >
-              <span className="text-2xl mr-3">✨</span>
-              Calculer mon potentiel de croissance
+              <span className="text-xl sm:text-2xl mr-2 sm:mr-3">✨</span>
+              <span className="hidden sm:inline">
+                Calculer mon potentiel de croissance
+              </span>
+              <span className="sm:hidden">Calculer mon potentiel</span>
             </Button>
           </div>
         </form>
-        
+
         <div className="mt-6 text-center">
           <p className="text-white/70 text-sm">
-            🔬 Calcul basé sur les données de conversion e-commerce et études sectorielles • 
-            🏆 Méthode éprouvée par nos clients
+            🔬 Calcul basé sur les données de conversion e-commerce et études
+            sectorielles • 🏆 Méthode éprouvée par nos clients
           </p>
         </div>
       </div>

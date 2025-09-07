@@ -39,18 +39,13 @@ function PostHogClient() {
   return posthog;
 }
 
-export async function submitLead(_: any, fd: FormData) {
-  const posthog = PostHogClient();
+export async function submitLead(_: unknown, fd: FormData) {
   const headersList = await headers();
   const ip = headersList.get("x-forwarded-for") || "127.0.0.1";
 
   try {
-    // 1. Rate Limiting
-    const { success } = await ratelimit.limit(ip);
-    if (!success) {
-      posthog.capture({ distinctId: ip, event: "rate_limit_triggered" });
-      return { error: "Trop de tentatives. Veuillez réessayer dans un instant." };
-    }
+    // Skip rate limiting and PostHog for now - debug mode
+    console.log("Form submission started...");
 
     const data = schema.parse(Object.fromEntries(fd));
 
@@ -70,21 +65,13 @@ export async function submitLead(_: any, fd: FormData) {
       },
     });
 
-    console.log("✅ Lead saved:", { email: data.email, url: data.url, stack: data.stack });
-
-    // 4. Envoyer l'événement à PostHog
-    posthog.capture({
-      distinctId: data.email,
-      event: "lead_submitted",
-      properties: {
-        email: data.email,
-        url: data.url,
-        stack: data.stack,
-        $ip: ip,
-      },
+    console.log("✅ Lead saved:", {
+      email: data.email,
+      url: data.url,
+      stack: data.stack,
     });
 
-    // 5. Retourner un état de succès
+    // 4. Retourner un état de succès
     return { ok: true };
   } catch (e) {
     // Gestion des erreurs de validation Zod
@@ -96,8 +83,5 @@ export async function submitLead(_: any, fd: FormData) {
     // Gestion des autres erreurs
     console.error("❌ Lead submission error:", e);
     return { error: "Une erreur est survenue. Veuillez réessayer." };
-  } finally {
-    // S'assurer que les événements sont envoyés avant la fin de l'exécution
-    await posthog.shutdown();
   }
 }
