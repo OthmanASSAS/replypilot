@@ -269,7 +269,7 @@ export default function ReportPage() {
                           <div className="mt-2">
                             <strong>Exemples clients:</strong>
                             <div className="flex flex-wrap gap-1 mt-1">
-                              {pain.examples.map((example, exIndex) => (
+                              {pain.examples.map((example: string, exIndex: number) => (
                                 <span key={exIndex} className="bg-orange-200 text-orange-800 px-2 py-1 rounded text-xs">
                                   "{example}"
                                 </span>
