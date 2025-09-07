@@ -28,25 +28,46 @@ export async function submitLead(_: unknown, fd: FormData) {
       return { ok: true };
     }
 
-    // SAUVEGARDE EN BASE DE DONNÉES - ESSENTIEL POUR LES LEADS !
-    const lead = await prisma.lead.create({
-      data: {
-        url: data.url,
+    // TENTATIVE DE SAUVEGARDE EN BASE DE DONNÉES
+    try {
+      const lead = await prisma.lead.create({
+        data: {
+          url: data.url,
+          email: data.email,
+          stack: data.stack || "non-precise",
+          ipAddress: ip,
+        },
+      });
+
+      console.log("✅ Lead saved to database:", {
+        id: lead.id,
         email: data.email,
-        stack: data.stack || "non-precise",
-        ipAddress: ip,
-      },
-    });
+        url: data.url,
+        stack: data.stack,
+        createdAt: lead.createdAt,
+      });
 
-    console.log("✅ Lead saved to database:", {
-      id: lead.id,
-      email: data.email,
-      url: data.url,
-      stack: data.stack,
-      createdAt: lead.createdAt,
-    });
+      return { ok: true };
+    } catch (dbError) {
+      // Si la DB fail, on log les infos importantes
+      console.error("❌ Database error, but saving lead info:", dbError);
 
-    return { ok: true };
+      // LOG CRITIQUE POUR RÉCUPÉRER LES LEADS !
+      console.log(
+        "🚨 LEAD TO RECOVER:",
+        JSON.stringify({
+          email: data.email,
+          url: data.url,
+          stack: data.stack,
+          ip: ip,
+          timestamp: new Date().toISOString(),
+          error: "DATABASE_FAILED",
+        }),
+      );
+
+      // On retourne quand même succès pour l'utilisateur
+      return { ok: true };
+    }
   } catch (e) {
     // Gestion des erreurs de validation Zod
     if (e instanceof z.ZodError) {
@@ -54,7 +75,7 @@ export async function submitLead(_: unknown, fd: FormData) {
       return { error: e.issues[0].message };
     }
 
-    // Gestion des autres erreurs (y compris DB)
+    // Gestion des autres erreurs
     console.error("❌ Lead submission error:", e);
     return { error: "Une erreur est survenue. Veuillez réessayer." };
   }
