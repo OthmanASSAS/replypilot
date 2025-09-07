@@ -223,7 +223,7 @@ export default function ReportPage() {
                           <div className="mt-2">
                             <strong>Étapes suivantes:</strong>
                             <ul className="list-disc list-inside text-sm ml-2">
-                              {opp.next_steps.map((step, stepIndex) => (
+                              {opp.next_steps.map((step: string, stepIndex: number) => (
                                 <li key={stepIndex}>{step}</li>
                               ))}
                             </ul>
