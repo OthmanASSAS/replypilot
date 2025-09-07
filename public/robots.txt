@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://replypilot.com/sitemap.xml
+
+# Block admin and sensitive pages
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /.*

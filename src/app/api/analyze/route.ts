@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer";
 import { isValidUrl } from "@/lib/analyze-helpers";
 import { prisma } from "@/lib/prisma";
+import { analyzeReviews, type Review } from "@/lib/groq-analysis";
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,14 +12,14 @@ export async function POST(request: NextRequest) {
     if (!url || !email) {
       return NextResponse.json(
         { error: "URL and email are required" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
     if (!isValidUrl(url)) {
       return NextResponse.json(
         { error: "Invalid URL format" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -68,7 +69,7 @@ export async function POST(request: NextRequest) {
         await new Promise((resolve) => setTimeout(resolve, 3000));
       } catch {
         console.log(
-          "No review widget detected initially, trying scroll trigger...",
+          "No review widget detected initially, trying scroll trigger..."
         );
 
         // Stratégie fallback : scroll pour trigger lazy loading
@@ -106,7 +107,7 @@ export async function POST(request: NextRequest) {
           console.log("Review widget found after scroll!");
         } catch {
           console.log(
-            "No review widgets found even after scroll, proceeding without reviews.",
+            "No review widgets found even after scroll, proceeding without reviews."
           );
         }
       }
@@ -123,7 +124,7 @@ export async function POST(request: NextRequest) {
       try {
         const looxIframeUrl = await page.evaluate(() => {
           const iframe = document.querySelector(
-            '#looxReviewsFrame, iframe[src*="loox.io"]',
+            '#looxReviewsFrame, iframe[src*="loox.io"]'
           );
           return iframe ? iframe.getAttribute("src") : null;
         });
@@ -131,7 +132,7 @@ export async function POST(request: NextRequest) {
         if (looxIframeUrl) {
           console.log(
             "Found Loox iframe, scraping content directly from:",
-            looxIframeUrl,
+            looxIframeUrl
           );
           const looxPage = await browser.newPage();
           try {
@@ -167,7 +168,7 @@ export async function POST(request: NextRequest) {
                 const elements = document.querySelectorAll(selector);
                 if (elements.length > 0) {
                   console.log(
-                    `Found ${elements.length} elements with selector: ${selector}`,
+                    `Found ${elements.length} elements with selector: ${selector}`
                   );
                   foundElements = Array.from(elements);
                   break;
@@ -176,12 +177,12 @@ export async function POST(request: NextRequest) {
 
               if (foundElements.length === 0) {
                 console.log(
-                  "No review elements found, checking page content...",
+                  "No review elements found, checking page content..."
                 );
                 console.log("Page title:", document.title);
                 console.log(
                   "Body content preview:",
-                  document.body.textContent.substring(0, 200),
+                  document.body.textContent.substring(0, 200)
                 );
                 return [];
               }
@@ -236,7 +237,7 @@ export async function POST(request: NextRequest) {
                 }
 
                 console.log(
-                  `Review ${index + 1}: author="${author}", rating=${rating}, body="${body.substring(0, 50)}..."`,
+                  `Review ${index + 1}: author="${author}", rating=${rating}, body="${body.substring(0, 50)}..."`
                 );
 
                 if (body) {
@@ -254,12 +255,12 @@ export async function POST(request: NextRequest) {
             });
 
             console.log(
-              `Successfully scraped ${looxReviews.length} Loox reviews from iframe`,
+              `Successfully scraped ${looxReviews.length} Loox reviews from iframe`
             );
           } catch (error) {
             console.log(
               "Failed to scrape Loox iframe:",
-              (error as Error).message,
+              (error as Error).message
             );
           } finally {
             await looxPage.close();
@@ -284,13 +285,13 @@ export async function POST(request: NextRequest) {
 
         // H1
         const h1Elements = Array.from(document.querySelectorAll("h1")).map(
-          (h1) => h1.textContent?.trim() || "",
+          (h1) => h1.textContent?.trim() || ""
         );
         const h1 = h1Elements.filter((text) => text.length > 0);
 
         // H2
         const h2Elements = Array.from(document.querySelectorAll("h2")).map(
-          (h2) => h2.textContent?.trim() || "",
+          (h2) => h2.textContent?.trim() || ""
         );
         const h2 = h2Elements.filter((text) => text.length > 0);
 
@@ -335,7 +336,7 @@ export async function POST(request: NextRequest) {
                         rating: r.reviewRating?.ratingValue || 0,
                         body: r.reviewBody || "",
                       });
-                    },
+                    }
                   );
                 } else if (json["@type"] === "Review") {
                   jsonLdReviews.push({
@@ -375,7 +376,7 @@ export async function POST(request: NextRequest) {
                   .querySelector(".pre-wrap.main-text")
                   ?.textContent?.trim() || "";
               const rating = review.querySelectorAll(
-                'ul > li > svg[data-lx-fill="full"]',
+                'ul > li > svg[data-lx-fill="full"]'
               ).length;
               if (author && body && rating > 0) {
                 reviews.push({ platform: "Loox", author, rating, body });
@@ -396,7 +397,7 @@ export async function POST(request: NextRequest) {
                 review.querySelector(".jdgm-rev__body")?.textContent?.trim() ||
                 "";
               const rating = review.querySelectorAll(
-                ".jdgm-star.jdgm--on",
+                ".jdgm-star.jdgm--on"
               ).length;
               reviews.push({ platform: "Judge.me", author, rating, body });
             });
@@ -460,10 +461,27 @@ export async function POST(request: NextRequest) {
         console.log(`Total reviews after merging: ${pageData.reviews.length}`);
       }
 
+      // Analyse IA des avis avec Groq (si des avis ont été trouvés)
+      let aiAnalysis = null;
+      if (pageData.reviews.length > 0) {
+        try {
+          console.log(
+            `Starting AI analysis of ${pageData.reviews.length} reviews...`
+          );
+          aiAnalysis = await analyzeReviews(pageData.reviews as Review[]);
+          console.log(
+            `AI analysis completed. Confidence score: ${aiAnalysis.confidence_score}%`
+          );
+        } catch (error) {
+          console.error("AI analysis failed:", (error as Error).message);
+          // Continue sans analyse IA si elle échoue
+        }
+      }
+
       // Fermeture du browser
       await browser.close();
 
-      // Sauvegarde en base de données
+      // Sauvegarde en base de données avec analyse IA
       const analysis = await prisma.analysis.create({
         data: {
           url,
@@ -472,6 +490,7 @@ export async function POST(request: NextRequest) {
           miniReport: {
             loadTime: `${loadTime}ms`,
             ...pageData,
+            aiAnalysis, // Ajouter l'analyse IA au rapport
           },
         },
       });
@@ -493,7 +512,7 @@ export async function POST(request: NextRequest) {
         error: "Failed to analyze website",
         details: error instanceof Error ? error.message : "Unknown error",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

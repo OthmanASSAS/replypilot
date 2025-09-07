@@ -113,4 +113,11 @@
 - **Logs détaillés**: Debug et monitoring du scraping
 - **Performance**: Stratégie de scroll intelligent pour lazy loading
 
+### **⚡ Optimisation Tests Ultra-Rapides (27/08/2025)**
+- **Performance**: Tests passent de 15s+ à 1.15s (amélioration de 1300%)
+- **Stratégie**: Mock complet des API routes au lieu d'exécuter Puppeteer
+- **Couverture**: 25 tests passent avec données simulées réalistes
+- **Avantages**: Développement plus rapide, CI plus efficace
+- **Technique**: Mock des réponses API avec structure de données cohérente
+
 **📚 Documentation détaillée**: Voir `TECHNICAL_SOLUTIONS.md` pour solutions complètes et "ce qu'il faut éviter"

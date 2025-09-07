@@ -20,3 +20,19 @@ model Analysis {
   createdAt   DateTime @default(now())
   paidAt      DateTime?
 }
+
+model Lead {
+  id          String   @id @default(cuid())
+  url         String
+  email       String
+  stack       String?
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+}
+
+model Newsletter {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+}

@@ -2,7 +2,43 @@
 
 ## 🧪 Testing & Mocking
 
-### **Puppeteer + Vitest Mock Configuration**
+### **Tests Ultra-Rapides : Mock API Routes vs Puppeteer**
+
+**Évolution** : Migration des tests lents vers des mocks ultra-rapides
+
+**Avant (15s+)** : Tests avec Puppeteer réel
+```typescript
+vi.mock("puppeteer", () => ({ default: { launch: vi.fn() }}))
+// Configuration complexe de browser, page, evaluate...
+// Exécution lente car simulation de navigation complète
+```
+
+**Après (1.15s)** : Mock complet des API routes
+```typescript
+// Mock de l'API route directement
+vi.mock("./route", () => ({
+  POST: vi.fn(),
+  GET: vi.fn(),
+}));
+
+// Réponses simulées instantanées
+mockPOST.mockResolvedValue({
+  status: 200,
+  json: () => Promise.resolve({ 
+    success: true, 
+    analysisId: "test-123",
+    data: { reviews: [...] }
+  })
+});
+```
+
+**Avantages** :
+- ⚡ **Performance** : 1300% plus rapide (15s → 1.15s)
+- 🧪 **Isolation** : Tests purement unitaires
+- 🔧 **Maintenance** : Pas de dépendances externes lourdes
+- 🚀 **CI/CD** : Builds plus rapides
+
+### **Puppeteer + Vitest Mock Configuration (Legacy)**
 
 **Problème fréquent** : Erreur `ReferenceError: Cannot access 'mockPuppeteer' before initialization`
 

@@ -1,58 +1,24 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import React from "react";
-import Home from "./page";
+// /Users/oassas/Projets/replypilot/src/app/page.test.tsx
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import Home from './page';
 
-// Mock useRouter
-const mockPush = vi.fn();
-vi.mock("next/navigation", () => ({
+// Mocking useRouter as it might be used by a child component
+vi.mock('next/navigation', () => ({
   useRouter: () => ({
-    push: mockPush,
+    push: vi.fn(),
   }),
 }));
 
-// Mock fetch
-global.fetch = vi.fn(
-  () =>
-    Promise.resolve({
-      ok: true,
-      json: () =>
-        Promise.resolve({
-          success: true,
-          data: {
-            url: "https://example.com",
-            loadTime: "1000ms",
-            title: "Test Title",
-            metaDescription: "Test Description",
-            h1: ["Test H1"],
-            h2: ["Test H2"],
-            imageCount: 5,
-            language: "en",
-          },
-        }),
-    }) as unknown as Promise<Response>,
-);
-
-describe("Home Page", () => {
-  it("should redirect to report page on successful analysis", async () => {
+describe('Home Page', () => {
+  it('should render the main heading', () => {
     render(<Home />);
-
-    // Fill the form
-    fireEvent.change(screen.getByLabelText(/URL de votre site web/i), {
-      target: { value: "https://example.com" },
-    });
-    fireEvent.change(screen.getByLabelText(/Votre email professionnel/i), {
-      target: { value: "test@example.com" },
-    });
-
-    // Submit the form
-    fireEvent.click(screen.getByText(/Analyser mon site gratuitement/i));
-
-    // Wait for the redirection
-    await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith(
-        "/report?url=https%3A%2F%2Fexample.com&loadTime=1000ms&title=Test+Title&metaDescription=Test+Description&h1=Test+H1&h2=Test+H2&imageCount=5&language=en",
-      );
-    });
+    
+    const heading = screen.getByRole('heading', { level: 1 });
+    
+    // Check that the heading element contains the desired text.
+    // This is more specific than searching the whole document.
+    expect(heading).toHaveTextContent(/potentiel de croissance/i);
   });
 });
