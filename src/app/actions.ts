@@ -3,6 +3,7 @@
 
 import { z } from "zod";
 import { headers } from "next/headers";
+import { prisma } from "@/lib/prisma";
 
 // Schéma de validation
 const schema = z.object({
@@ -13,6 +14,9 @@ const schema = z.object({
 });
 
 export async function submitLead(_: unknown, fd: FormData) {
+  const headersList = await headers();
+  const ip = headersList.get("x-forwarded-for") || "127.0.0.1";
+
   try {
     console.log("Form submission started...");
 
@@ -24,15 +28,24 @@ export async function submitLead(_: unknown, fd: FormData) {
       return { ok: true };
     }
 
-    // Simuler la sauvegarde pour éviter les erreurs de base de données
-    console.log("✅ Lead submission received:", {
+    // SAUVEGARDE EN BASE DE DONNÉES - ESSENTIEL POUR LES LEADS !
+    const lead = await prisma.lead.create({
+      data: {
+        url: data.url,
+        email: data.email,
+        stack: data.stack || "non-precise",
+        ipAddress: ip,
+      },
+    });
+
+    console.log("✅ Lead saved to database:", {
+      id: lead.id,
       email: data.email,
       url: data.url,
       stack: data.stack,
+      createdAt: lead.createdAt,
     });
 
-    // Pour l'instant, on simule le succès
-    // TODO: Réactiver la sauvegarde en base une fois la DB configurée
     return { ok: true };
   } catch (e) {
     // Gestion des erreurs de validation Zod
@@ -41,7 +54,7 @@ export async function submitLead(_: unknown, fd: FormData) {
       return { error: e.issues[0].message };
     }
 
-    // Gestion des autres erreurs
+    // Gestion des autres erreurs (y compris DB)
     console.error("❌ Lead submission error:", e);
     return { error: "Une erreur est survenue. Veuillez réessayer." };
   }
