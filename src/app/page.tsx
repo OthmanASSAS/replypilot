@@ -98,20 +98,22 @@ export default function Home() {
             <div className="max-w-6xl mx-auto text-center">
               <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white/90 font-medium mb-6 border border-white/20">
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                Sites e-commerce
+                Optimisation Réputation Client
               </div>
               <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
-                <span className="text-white">Calculez votre</span>
+                <span className="text-white">Combien</span>
                 <br />
                 <span className="bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 bg-clip-text text-transparent">
-                  potentiel de croissance
+                  perdez-vous
                 </span>
                 <br />
-                <span className="text-white">en 30 secondes</span>
+                <span className="text-white">
+                  à cause de vos Avis Clients ?
+                </span>
               </h1>
               <p className="text-xl lg:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed mb-10">
-                Transformez vos avis clients en ambassadeurs et découvrez votre
-                potentiel de croissance avec notre calculateur exclusif
+                Réponse en 30 secondes + Audit personnalisé gratuit (livré en
+                24h)
               </p>
 
               <div className="max-w-4xl mx-auto">
@@ -386,9 +388,11 @@ export default function Home() {
                               🚀
                             </span>
                             <span className="hidden sm:inline">
-                              Recevoir mon audit en 24h
+                              Je veux mon plan d’action gratuit
                             </span>
-                            <span className="sm:hidden">Audit gratuit</span>
+                            <span className="sm:hidden">
+                              Plan d’action gratuit
+                            </span>
                           </>
                         )}
                       </Button>
@@ -622,12 +626,12 @@ export default function Home() {
                   réservés.
                 </p>
                 <p className="text-slate-500 text-sm">
-                  Une question ? Contactez-nous :
+                  Une question ? Contactez-nous
                   <SafeMailto
-                    email="davimi.team@gmail.com"
+                    email="othman@othman-assas.fr"
                     className="text-blue-400 hover:text-blue-300 underline ml-1 transition-colors"
                   >
-                    davimi.team@gmail.com
+                    othman@othman-assas.fr
                   </SafeMailto>
                 </p>
               </div>
