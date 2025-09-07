@@ -43,7 +43,7 @@ L'évaluation repose sur six critères pondérés selon leur impact business ré
 
 **Performance commerciale** (30%) - Mesure de l'impact sur les conversions et le panier moyen sur 12 mois
 
-**Total Cost of Ownership** (25%) - Intégration des coûts directs, temps de gestion et coûts cachés
+**Coût total de possession** (25%) - Intégration des coûts directs, temps de gestion et coûts cachés
 
 **Qualité de service** (20%) - Réactivité support, documentation et accompagnement
 
@@ -80,7 +80,7 @@ L'absence d'intelligence artificielle intégrée contraste avec l'évolution du 
 - Import/export CSV
 - Support email
 
-**Plan Awesome ($15/mois)** : Jusqu'à 500 commandes
+**Plan Awesome (14€/mois)** : Jusqu'à 500 commandes
 - Emails de relance automatiques
 - Rich snippets avancés
 - Personnalisation CSS complète
@@ -98,24 +98,24 @@ Loox mise sur l'expérience visuelle avec une plateforme optimisée pour les avi
 - **UX mobile optimisée** : Interface responsive native, temps de chargement mobile 40% plus rapide
 - **Gestion photo avancée** : Compression automatique, formats multiples, watermarking
 - **Intégration sociale** : Synchronisation Instagram bidirectionnelle
-- **Design moderne** : Templates 2024 avec animations CSS3
+- **Design moderne** : Modèles 2024 avec animations CSS3
 - **Analytics visuels** : Tableaux de bord orientés performance photo
 
 **Contraintes techniques :**
 
 - **Coût supérieur** : 30% plus cher que Judge.me à volume équivalent
-- **Customisation limitée** : Templates non modifiables en CSS
+- **Customisation limitée** : Modèles non modifiables en CSS
 - **Support variable** : Qualité du support dépendante du plan tarifaire
-- **Focus B2C** : Moins adapté aux marchands B2B ou produits techniques
+- **Focus B2C** : Moins adapté aux marchands entreprise ou produits techniques
 
 ### Structure tarifaire
 
-**Beginner ($9.99/mois)** : 200 commandes
+**Débutant (9€/mois)** : 200 commandes
 - Avis photo illimités
 - Widgets de base
 - Support email
 
-**Advanced ($19.99/mois)** : 500 commandes
+**Avancé (18€/mois)** : 500 commandes
 - Vidéos d'avis
 - Intégrations marketing
 - Support prioritaire
@@ -133,7 +133,7 @@ Yotpo dépasse le cadre des avis clients pour proposer une suite marketing compl
 - **Intelligence artificielle** : Analyse sentiment automatique, réponses suggérées
 - **Intégrations étendues** : Plus de 100 connecteurs natifs (CRM, email, ads)
 - **Analytics approfondis** : Reporting ROI détaillé, attribution multi-touch
-- **Support enterprise** : Account manager dédié, SLA garantis
+- **Support entreprise** : Gestionnaire de compte dédié, SLA garantis
 - **Scalabilité** : Architecture cloud supportant millions d'avis
 
 **Complexité et contraintes :**
@@ -145,12 +145,12 @@ Yotpo dépasse le cadre des avis clients pour proposer une suite marketing compl
 
 ### Grille tarifaire
 
-**Growth ($79/mois)** : 500 commandes
+**Croissance (75€/mois)** : 500 commandes
 - Avis et Q&R basiques
 - Intégrations limitées
 - Support standard
 
-**Premium ($359/mois)** : 2000 commandes
+**Premium (340€/mois)** : 2000 commandes
 - Suite marketing complète
 - IA et automatisation
 - Analytics avancés
@@ -213,7 +213,7 @@ Notre analyse de performance sur 12 mois révèle des écarts significatifs selo
 **Yotpo** justifie son coût par :
 - Suite marketing intégrée
 - Analytics approfondis
-- Support enterprise
+- Support entreprise
 - Scalabilité garantie
 
 ## Stratégie de migration et d'implémentation
@@ -263,7 +263,8 @@ L'évolution rapide du secteur impose une réévaluation annuelle de ces solutio
     category: "Optimisation",
     readTime: "10 min",
     publishedAt: "2025-01-12",
-    heroTagline: "Une analyse basée sur l'étude de 12 000 avis clients français.",
+    heroTagline:
+      "Une analyse basée sur l'étude de 12 000 avis clients français.",
     content: `
 # Les 5 erreurs critiques qui sabotent vos ventes e-commerce
 
@@ -337,7 +338,7 @@ Trois problèmes récurrents minent la confiance de vos clients :
 
 ### Les dégâts collatéraux sur vos ventes
 
-**Impact direct sur vos KPIs**
+**Impact direct sur vos indicateurs**
 
 Les métriques qui chutent à cause des retards :
 - Note moyenne produit : -0,8 point (effet domino garanti)
@@ -573,7 +574,7 @@ Vos avis Shopify contiennent une mine d'or d'informations. Voici notre méthode 
 
 **Matrice Impact × Effort :**
 
-**Quick Wins (Impact Fort × Effort Faible)**
+**Gains Rapides (Impact Fort × Effort Faible)**
 - Mettre à jour descriptions produits
 - Ajouter photos clients
 - Corriger FAQ
@@ -586,7 +587,7 @@ Vos avis Shopify contiennent une mine d'or d'informations. Voici notre méthode 
 ## 📊 Outils d'Analyse Avancés
 
 ### Solution Gratuite : Spreadsheet
-**Template d'analyse** (téléchargeable) :
+**Modèle d'analyse** (téléchargeable) :
 - Colonne A : Avis texte
 - Colonne B : Note /5
 - Colonne C : Catégorie (dropdown)
@@ -622,7 +623,7 @@ Vos avis Shopify contiennent une mine d'or d'informations. Voici notre méthode 
 - Boutiques 100-500 commandes/mois : Bi-mensuel
 - Boutiques > 500 commandes/mois : Hebdomadaire
 
-**KPIs à tracker :**
+**Indicateurs à suivre :**
 - Note moyenne (/5)
 - % avis positifs (4-5⭐)
 - Temps de réponse moyen
@@ -653,7 +654,7 @@ const allSlugs = Object.keys(blogPosts) as Slug[];
 const sortedSlugs = [...allSlugs].sort(
   (a, b) =>
     new Date(blogPosts[b].publishedAt).getTime() -
-    new Date(blogPosts[a].publishedAt).getTime()
+    new Date(blogPosts[a].publishedAt).getTime(),
 );
 
 // --- STATIC PARAMS (SSG)
@@ -713,63 +714,63 @@ export async function generateMetadata({
 function mdToHtmlSafe(md: string) {
   // Génère des IDs d'en-têtes pour ancrage/TOC avec une approche simplifiée
   const raw = marked.parse(md) as string;
-  
+
   // Post-process to add scroll-mt-28 class to headings and professional formatting
   let processedHtml = raw.replace(
-    /<h([1-6])([^>]*?)>/g, 
-    '<h$1$2 class="scroll-mt-28">'
+    /<h([1-6])([^>]*?)>/g,
+    '<h$1$2 class="scroll-mt-28">',
   );
 
   // Add professional spacing after paragraphs
   processedHtml = processedHtml.replace(
     /<\/p>/g,
-    '</p><div class="mb-6"></div>'
+    '</p><div class="mb-6"></div>',
   );
 
   // Enhanced section styling for better readability
   processedHtml = processedHtml.replace(
     /<h2([^>]*?)>/g,
-    '<div class="mt-16 mb-8"></div><h2$1>'
+    '<div class="mt-16 mb-8"></div><h2$1>',
   );
 
   processedHtml = processedHtml.replace(
     /<h3([^>]*?)>/g,
-    '<div class="mt-12 mb-6"></div><h3$1>'
+    '<div class="mt-12 mb-6"></div><h3$1>',
   );
 
   // Unified styling for all sub-headings - consistent size and formatting
-  
+
   // Phase/Étape/Semaine patterns
   processedHtml = processedHtml.replace(
     /<p><strong>(Phase \d+[^<]*?|Étape \d+[^<]*?|Semaine \d+[^<]*?)<\/strong>[^<]*?<\/p>/g,
-    '<h4 class="text-xl font-bold text-slate-900 mt-12 mb-6 border-l-4 border-blue-500 pl-6 bg-gradient-to-r from-blue-50 to-transparent py-4 rounded-r-lg">$1</h4>'
+    '<h4 class="text-xl font-bold text-slate-900 mt-12 mb-6 border-l-4 border-blue-500 pl-6 bg-gradient-to-r from-blue-50 to-transparent py-4 rounded-r-lg">$1</h4>',
   );
 
   // All other strategic section headers - unified styling
   processedHtml = processedHtml.replace(
     /<p><strong>([^<]*?)\s*:?\s*<\/strong>\s*<\/p>/g,
-    '<h4 class="text-xl font-bold text-slate-900 mt-12 mb-6 border-l-4 border-blue-500 pl-6 bg-gradient-to-r from-blue-50 to-transparent py-4 rounded-r-lg">$1</h4>'
+    '<h4 class="text-xl font-bold text-slate-900 mt-12 mb-6 border-l-4 border-blue-500 pl-6 bg-gradient-to-r from-blue-50 to-transparent py-4 rounded-r-lg">$1</h4>',
   );
 
   // Inline strong text that should be sub-headers (remove colons)
   processedHtml = processedHtml.replace(
     /<p><strong>([^<]*?)\s*:\s*<\/strong>/g,
-    '</p><h4 class="text-xl font-bold text-slate-900 mt-12 mb-6 border-l-4 border-blue-500 pl-6 bg-gradient-to-r from-blue-50 to-transparent py-4 rounded-r-lg">$1</h4><p>'
+    '</p><h4 class="text-xl font-bold text-slate-900 mt-12 mb-6 border-l-4 border-blue-500 pl-6 bg-gradient-to-r from-blue-50 to-transparent py-4 rounded-r-lg">$1</h4><p>',
   );
 
   // Professional quote styling
   processedHtml = processedHtml.replace(
     /<blockquote>/g,
-    '<blockquote class="border-l-4 border-blue-500 pl-8 py-4 my-8 bg-slate-50 italic text-slate-700">'
+    '<blockquote class="border-l-4 border-blue-500 pl-8 py-4 my-8 bg-slate-50 italic text-slate-700">',
   );
-  
+
   // Style the introduction paragraph (first paragraph after the subtitle)
   // First, style the italicized subtitle/description
   processedHtml = processedHtml.replace(
     /<p><em>([^<]+)<\/em><\/p>/,
-    '<div class="bg-gradient-to-r from-slate-100 to-slate-50 rounded-xl p-6 mb-8 border-l-4 border-blue-500"><p class="text-lg font-medium text-slate-700 italic text-center m-0">$1</p></div>'
+    '<div class="bg-gradient-to-r from-slate-100 to-slate-50 rounded-xl p-6 mb-8 border-l-4 border-blue-500"><p class="text-lg font-medium text-slate-700 italic text-center m-0">$1</p></div>',
   );
-  
+
   // Enhance the first proper paragraph (after hr) to be more prominent
   let hrFound = false;
   processedHtml = processedHtml.replace(
@@ -777,28 +778,32 @@ function mdToHtmlSafe(md: string) {
     (match, p1) => {
       if (!hrFound) {
         hrFound = true;
-        return '<hr class="my-8 border-slate-300"><div class="bg-blue-50 rounded-lg p-6 mb-8 border border-blue-200"><p class="text-xl leading-relaxed text-slate-800 font-medium">' + p1.replace('</p>', '') + '</p></div>';
+        return (
+          '<hr class="my-8 border-slate-300"><div class="bg-blue-50 rounded-lg p-6 mb-8 border border-blue-200"><p class="text-xl leading-relaxed text-slate-800 font-medium">' +
+          p1.replace("</p>", "") +
+          "</p></div>"
+        );
       }
       return match;
-    }
+    },
   );
 
   // Remove excessive spacing from lists
   processedHtml = processedHtml.replace(
     /<\/li><div class="mb-6"><\/div>/g,
-    '</li>'
+    "</li>",
   );
 
   // Style list items with strong beginnings as highlighted items
   processedHtml = processedHtml.replace(
     /<li><strong>([^<:]+?)\s*:\s*<\/strong>([^<]*?)<\/li>/g,
-    '<li class="bg-white border border-slate-200 rounded-lg p-5 my-3 shadow-sm"><strong class="text-blue-700 text-lg font-semibold block mb-2">$1</strong><span class="text-slate-700 leading-relaxed">$2</span></li>'
+    '<li class="bg-white border border-slate-200 rounded-lg p-5 my-3 shadow-sm"><strong class="text-blue-700 text-lg font-semibold block mb-2">$1</strong><span class="text-slate-700 leading-relaxed">$2</span></li>',
   );
 
-  // Style plan/pricing sections  
+  // Style plan/pricing sections
   processedHtml = processedHtml.replace(
-    /<p><strong>([^<]*?Plan[^<]*?|[^<]*?\(\$[^<]*?\)[^<]*?)<\/strong>\s*:\s*([^<]*?)<\/p>/g,
-    '<div class="bg-blue-50 border border-blue-200 rounded-xl p-6 my-6"><h4 class="text-xl font-bold text-blue-900 mb-3 flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>$1</h4><p class="text-blue-800 font-medium mb-0">$2</p></div>'
+    /<p><strong>([^<]*?Plan[^<]*?|[^<]*?\([€$][^<]*?\)[^<]*?)<\/strong>\s*:\s*([^<]*?)<\/p>/g,
+    '<div class="bg-blue-50 border border-blue-200 rounded-xl p-6 my-6"><h4 class="text-xl font-bold text-blue-900 mb-3 flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>$1</h4><p class="text-blue-800 font-medium mb-0">$2</p></div>',
   );
 
   return DOMPurify.sanitize(processedHtml);
@@ -868,7 +873,12 @@ export default async function BlogPost({
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Accueil", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Blog", item: `${siteUrl}/blog` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${siteUrl}/blog`,
+      },
       {
         "@type": "ListItem",
         position: 3,
@@ -1020,10 +1030,12 @@ export default async function BlogPost({
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700" />
               <div className="relative p-8 lg:p-10 text-center text-white">
                 <h3 className="text-2xl lg:text-3xl font-bold mb-3">
-                  Prêt à appliquer ces <span className="text-yellow-300">stratégies</span> ?
+                  Prêt à appliquer ces{" "}
+                  <span className="text-yellow-300">stratégies</span> ?
                 </h3>
                 <p className="text-white/90 max-w-2xl mx-auto mb-6">
-                  Recevez votre audit personnalisé en 24h avec un plan d'action concret pour votre boutique.
+                  Recevez votre audit personnalisé en 24h avec un plan
+                  d&apos;action concret pour votre boutique.
                 </p>
                 <Link
                   href="/#form-section"
@@ -1126,12 +1138,12 @@ export default async function BlogPost({
             </section>
           </div>
 
-          {/* Right gutter: mini facts/KPIs (optionnel) */}
+          {/* Right gutter: mini facts/indicateurs (optionnel) */}
           <aside className="hidden xl:block">
             <div className="sticky top-24 space-y-4">
               <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <h4 className="text-sm font-semibold text-slate-700 mb-2">
-                  Pourquoi c'est fiable ?
+                  Pourquoi c&apos;est fiable ?
                 </h4>
                 <ul className="text-sm text-slate-600 space-y-1">
                   <li>• Méthode éprouvée</li>
@@ -1166,12 +1178,13 @@ export default async function BlogPost({
               </span>
             </div>
             <p className="text-slate-400 mb-6">
-              L'expertise e-commerce qui transforme vos avis clients en
+              L&apos;expertise e-commerce qui transforme vos avis clients en
               croissance.
             </p>
             <div className="border-t border-slate-800 pt-6">
               <p className="text-sm text-slate-500">
-                © {new Date().getFullYear()} ReplyPilot. Tous droits réservés. •{" "}
+                © {new Date().getFullYear()} ReplyPilot. Tous droits réservés.
+                •{" "}
                 <Link
                   href="/privacy"
                   className="hover:text-blue-400 transition-colors"
