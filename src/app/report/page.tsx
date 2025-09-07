@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Review {
@@ -55,7 +55,7 @@ interface Analysis {
   createdAt: string;
 }
 
-export default function ReportPage() {
+function ReportPageContent() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
@@ -355,5 +355,13 @@ export default function ReportPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function ReportPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ReportPageContent />
+    </Suspense>
   );
 }

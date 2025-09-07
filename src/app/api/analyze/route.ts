@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import puppeteer from "puppeteer";
-import { isValidUrl } from "@/lib/analyze-helpers";
-import { prisma } from "@/lib/prisma";
-import { analyzeReviews, type Review } from "@/lib/groq-analysis";
+// import puppeteer from "puppeteer";
+// import { isValidUrl } from "@/lib/analyze-helpers";
+// import { prisma } from "@/lib/prisma";
+// import { analyzeReviews, type Review } from "@/lib/groq-analysis";
 
 export async function POST(request: NextRequest) {
+  // Temporarily disabled for build
+  return NextResponse.json({ error: "API temporarily disabled" }, { status: 503 });
+  
   try {
     const { url, email } = await request.json();
 

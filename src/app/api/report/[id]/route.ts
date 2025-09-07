@@ -1,11 +1,17 @@
 // filepath: /Users/oassas/Projets/replypilot/src/app/api/report/[id]/route.ts
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+// import { prisma } from "@/lib/prisma";
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  // Temporarily disabled for build
+  return NextResponse.json(
+    { error: "API temporarily disabled" },
+    { status: 503 },
+  );
+
   try {
     const { id } = await params;
     const analysis = await prisma.analysis.findUnique({
