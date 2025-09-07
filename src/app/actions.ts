@@ -14,13 +14,19 @@ const schema = z.object({
 });
 
 export async function submitLead(_: unknown, fd: FormData) {
-  const headersList = await headers();
-  const ip = headersList.get("x-forwarded-for") || "127.0.0.1";
-
   try {
-    console.log("Form submission started...");
+    console.log("🚀 Form submission started...");
+    console.log("Environment check:", {
+      DATABASE_URL: process.env.DATABASE_URL ? "✅ Set" : "❌ Missing",
+      NODE_ENV: process.env.NODE_ENV,
+    });
 
+    const headersList = await headers();
+    const ip = headersList.get("x-forwarded-for") || "127.0.0.1";
+
+    console.log("📝 Parsing form data...");
     const data = schema.parse(Object.fromEntries(fd));
+    console.log("✅ Form data parsed successfully");
 
     // Protection Honeypot
     if (data.company_website) {
