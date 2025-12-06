@@ -102,11 +102,13 @@ export default function ROICalculator({ onCalculate }: ROICalculatorProps) {
               size="lg"
               className="h-16 text-base sm:text-lg px-4 sm:px-12 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 hover:from-yellow-500 hover:via-orange-500 hover:to-red-500 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all border-0 w-full"
             >
-              <span className="text-xl sm:text-2xl mr-2 sm:mr-3">✨</span>
-              <span className="hidden sm:inline">
-                Calculer mon potentiel de croissance
+              <span className="flex items-center justify-center gap-2 sm:gap-3">
+                <span className="text-xl sm:text-2xl">✨</span>
+                <span className="hidden sm:inline">
+                  Calculer mon potentiel de croissance
+                </span>
+                <span className="sm:hidden">Calculer mon potentiel</span>
               </span>
-              <span className="sm:hidden">Calculer mon potentiel</span>
             </Button>
           </div>
         </form>
